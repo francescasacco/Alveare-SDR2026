@@ -127,6 +127,22 @@ const AlveareMap: React.FC = () => {
           wrapper.setAttribute('style', `animation-delay: ${i * 25}ms`)
         })
 
+        const hex16 = svgEl.querySelector('[data-logo-id="16"]')
+        if (hex16) {
+          const imgs = hex16.querySelectorAll('image')
+          imgs.forEach(img => {
+            img.setAttribute('href', '/HOD_Logo.jpg')
+            img.setAttribute('xlink:href', '/HOD_Logo.jpg')
+            const x = parseFloat(img.getAttribute('x') || '0')
+            const y = parseFloat(img.getAttribute('y') || '0')
+            const w = parseFloat(img.getAttribute('width') || '0')
+            const h = parseFloat(img.getAttribute('height') || '0')
+            const cx = x + w / 2
+            const cy = y + h / 2
+            img.setAttribute('transform', `rotate(180 ${cx} ${cy})`)
+          })
+        }
+
         setSvgText(new XMLSerializer().serializeToString(svgEl))
       })
   }, [])

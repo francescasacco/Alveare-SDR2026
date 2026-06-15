@@ -25,7 +25,7 @@ export const logos: LogoEntry[] = [
 
   { id: 14, cx: 110.9, cy: 343.7, label: 'Gilda del Grifone',                      url: 'https://www.gildadelgrifonetorino.it' },
   { id: 15, cx: 219.1, cy: 343.3, label: 'Sad For Fun',                            url: 'https://linktr.ee/sadforfun' },
-  { id: 16, cx: 328.1, cy: 342.6, label: '',                                        url: '#' },
+  { id: 16, cx: 328.1, cy: 342.6, label: 'Hive of Dice',                           url: 'https://linktr.ee/hiveofdice' },
   { id: 17, cx: 436.4, cy: 342.8, label: 'Storytellers',                           url: 'https://linktr.ee/StorytellersIT' },
   { id: 18, cx: 545.2, cy: 343.0, label: 'Blue Triskel',                           url: 'https://www.instagram.com/thebluetriskel' },
 

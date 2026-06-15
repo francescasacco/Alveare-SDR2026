@@ -204,19 +204,31 @@ const App: React.FC = () => {
       <header style={{ textAlign: 'center', marginBottom: 12, position: 'relative', zIndex: 1 }}>
         <h1
           style={{
-            color: '#ffb200',
-            fontSize: 'clamp(1.4rem, 4vw, 2.2rem)',
-            fontFamily: "'Lilita One', cursive",
+            color: '#ffd000',
+            fontSize: 'clamp(1.8rem, 5vw, 2.8rem)',
+            fontFamily: "'Colo Pro', 'Lilita One', cursive",
             fontWeight: 400,
-            letterSpacing: '0.03em',
-            WebkitTextStroke: '3px #1a0050',
-            textShadow: '0 0 20px rgba(255,200,0,0.55), 0 0 40px rgba(255,160,0,0.3)',
+            letterSpacing: '0.04em',
+            textShadow: '0 0 14px rgba(255,180,0,0.6), 0 0 30px rgba(255,140,0,0.3)',
             margin: 0,
-            lineHeight: 1.15,
+            lineHeight: 1.2,
           }}
         >
-          Solstizio di Ruolo 2026 — Realtà partecipanti
+          Solstizio di Ruolo 2026
         </h1>
+        <p
+          style={{
+            color: '#f08c00',
+            fontSize: 'clamp(1.3rem, 3.5vw, 2rem)',
+            fontFamily: "'Colo Pro', 'Lilita One', cursive",
+            fontWeight: 400,
+            letterSpacing: '0.03em',
+            textShadow: '0 0 10px rgba(240,140,0,0.3)',
+            margin: '4px 0 0',
+          }}
+        >
+          Realtà partecipanti
+        </p>
       </header>
 
       <div

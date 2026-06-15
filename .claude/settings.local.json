@@ -1,7 +1,8 @@
 {
   "permissions": {
     "allow": [
-      "Bash(node -e ' *)"
+      "Bash(node -e ' *)",
+      "Bash(Remove-Item \"c:\\\\Users\\\\Francesca Saccco\\\\Documents\\\\Programming\\\\alveare-sdr2026\\\\alveare-app\\\\src\\\\HexOverlay.tsx\")"
     ]
   }
 }

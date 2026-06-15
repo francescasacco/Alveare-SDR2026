@@ -5,7 +5,6 @@ import Tooltip from './Tooltip'
 
 interface TooltipState {
   label: string
-  url: string
   x: number
   y: number
 }
@@ -162,7 +161,7 @@ const AlveareMap: React.FC = () => {
       if (tooltip) setTooltip(null)
       return
     }
-    setTooltip({ label: logo.label, url: logo.url, x: e.clientX, y: e.clientY })
+    setTooltip({ label: logo.label, x: e.clientX, y: e.clientY })
   }
 
   if (svgText === null) {

@@ -3,47 +3,67 @@ import AlveareMap from './AlveareMap'
 import KonamiEaster from './KonamiEaster'
 import beePng from './assets/bee.png'
 
-const R_HEX = 22
-const W_HEX = R_HEX * Math.sqrt(3)
-
-const honeycombCenters: [number, number][] = []
-for (let row = 0; row < 4; row++) {
-  for (let col = 0; col < 4; col++) {
-    honeycombCenters.push([
-      W_HEX / 2 + col * W_HEX + (row % 2 === 1 ? W_HEX / 2 : 0),
-      R_HEX + row * R_HEX * 1.5,
-    ])
-  }
-}
-
-const hexPoints = (cx: number, cy: number) =>
+const hexPts = (cx: number, cy: number, r: number) =>
   Array.from({ length: 6 }, (_, i) => {
     const a = (i * 60 - 30) * (Math.PI / 180)
-    return `${(cx + R_HEX * Math.cos(a)).toFixed(1)},${(cy + R_HEX * Math.sin(a)).toFixed(1)}`
+    return `${(cx + r * Math.cos(a)).toFixed(1)},${(cy + r * Math.sin(a)).toFixed(1)}`
   }).join(' ')
 
-const HONEY_W = Math.ceil(W_HEX * 4 + W_HEX / 2)
-const HONEY_H = Math.ceil(R_HEX * 6.5)
+const buildGrid = (R: number, rows: number, cols: number): [number, number][] => {
+  const W = R * Math.sqrt(3)
+  const out: [number, number][] = []
+  for (let row = 0; row < rows; row++)
+    for (let col = 0; col < cols; col++)
+      out.push([W / 2 + col * W + (row % 2 === 1 ? W / 2 : 0), R + row * R * 1.5])
+  return out
+}
 
-const HoneycombDecor: React.FC<{ style?: React.CSSProperties }> = ({ style }) => (
-  <svg
-    width={HONEY_W}
-    height={HONEY_H}
-    style={{ position: 'absolute', pointerEvents: 'none', zIndex: 0, ...style }}
-    aria-hidden="true"
-  >
-    {honeycombCenters.map(([cx, cy], i) => (
-      <polygon
-        key={i}
-        points={hexPoints(cx, cy)}
-        stroke="#ffb200"
-        strokeWidth="2"
-        fill={i % 2 === 0 ? 'rgba(255,178,0,0.08)' : 'none'}
-        opacity={0.35}
-      />
-    ))}
-  </svg>
-)
+const HoneycombDecor: React.FC<{ style?: React.CSSProperties; variant?: 'A' | 'B' }> = ({
+  style,
+  variant = 'A',
+}) => {
+  if (variant === 'A') {
+    const R = 22, W = R * Math.sqrt(3)
+    const centers = buildGrid(R, 4, 4)
+    return (
+      <svg
+        width={Math.ceil(W * 4 + W / 2)}
+        height={Math.ceil(R * 6.5)}
+        style={{ position: 'absolute', pointerEvents: 'none', zIndex: 0, ...style }}
+        aria-hidden="true"
+      >
+        {centers.map(([cx, cy], i) => (
+          <polygon key={i} points={hexPts(cx, cy, R)}
+            stroke="#ffb200" strokeWidth="2"
+            fill={i % 2 === 0 ? 'rgba(255,178,0,0.10)' : 'none'}
+            opacity={0.40} />
+        ))}
+      </svg>
+    )
+  }
+
+  const R = 17, W = R * Math.sqrt(3), COLS = 5
+  const centers = buildGrid(R, 5, COLS)
+  return (
+    <svg
+      width={Math.ceil(W * COLS + W / 2)}
+      height={Math.ceil(R * 8)}
+      style={{ position: 'absolute', pointerEvents: 'none', zIndex: 0, ...style }}
+      aria-hidden="true"
+    >
+      {centers.map(([cx, cy], i) => {
+        const row = Math.floor(i / COLS)
+        const col = i % COLS
+        const pat = (row * 2 + col) % 3
+        return (
+          <polygon key={i} points={hexPts(cx, cy, R)} stroke="#ffb200" strokeWidth="1.5"
+            fill={pat === 0 ? 'rgba(255,178,0,0.16)' : 'none'}
+            opacity={0.38} />
+        )
+      })}
+    </svg>
+  )
+}
 
 const BeeWander: React.FC<{
   zone: 'left' | 'right'
@@ -78,18 +98,18 @@ const BeeWander: React.FC<{
       const containerW = Math.min(vw * 0.9, 760)
       const centerL = (vw - containerW) / 2
       const centerR = centerL + containerW
-      const pad = 20
+      const pad = 15
 
       if (zone === 'right') {
-        if (vw - centerR >= 120) {
-          return { xMin: centerR + pad, xMax: vw - pad, yMin: 60, yMax: vh - 60 }
+        if (vw - centerR >= 80) {
+          return { xMin: centerR - 80, xMax: vw - pad, yMin: 60, yMax: vh - 60 }
         }
-        return { xMin: vw * 0.72, xMax: vw - pad, yMin: vh * 0.72, yMax: vh - pad }
+        return { xMin: vw * 0.72, xMax: vw - pad, yMin: vh * 0.70, yMax: vh - pad }
       } else {
-        if (centerL >= 120) {
-          return { xMin: pad, xMax: centerL - pad, yMin: 60, yMax: vh - 60 }
+        if (centerL >= 80) {
+          return { xMin: pad, xMax: centerL + 80, yMin: 60, yMax: vh - 60 }
         }
-        return { xMin: pad, xMax: vw * 0.28, yMin: vh * 0.72, yMax: vh - pad }
+        return { xMin: pad, xMax: vw * 0.28, yMin: vh * 0.70, yMax: vh - pad }
       }
     }
 
@@ -178,8 +198,8 @@ const App: React.FC = () => {
         damping={0.91} stiffness={0.004}
       />
 
-      <HoneycombDecor style={{ top: 0, right: 0 }} />
-      <HoneycombDecor style={{ bottom: 0, left: 0 }} />
+      <HoneycombDecor style={{ top: 0, right: 0 }} variant="A" />
+      <HoneycombDecor style={{ bottom: 0, left: 0 }} variant="B" />
 
       <header style={{ textAlign: 'center', marginBottom: 12, position: 'relative', zIndex: 1 }}>
         <h1
@@ -195,7 +215,7 @@ const App: React.FC = () => {
             lineHeight: 1.15,
           }}
         >
-          Solstizio di Ruolo 2026{<br />}Realtà partecipanti
+          Solstizio di Ruolo 2026 — Realtà partecipanti
         </h1>
       </header>
 

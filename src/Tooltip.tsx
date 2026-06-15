@@ -2,7 +2,6 @@ import React from 'react'
 
 interface TooltipProps {
   label: string
-  url: string
   x: number
   y: number
 }

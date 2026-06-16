@@ -111,7 +111,7 @@ const BeeWander: React.FC<{
         if (centerL >= 80) {
           return { xMin: pad, xMax: centerL + 80, yMin: 60, yMax: vh - 60 }
         }
-        return { xMin: pad, xMax: vw * 0.28, yMin: vh * 0.70, yMax: vh - pad }
+        return { xMin: pad, xMax: vw * 0.28, yMin: pad, yMax: vh * 0.12 }
       }
     }
 

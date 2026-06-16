@@ -27,9 +27,10 @@ const HoneycombDecor: React.FC<{ style?: React.CSSProperties; variant?: 'A' | 'B
     const centers = buildGrid(R, 4, 4)
     return (
       <svg
+        className="honeycomb-decor"
         width={Math.ceil(W * 4 + W / 2)}
         height={Math.ceil(R * 6.5)}
-        style={{ position: 'absolute', pointerEvents: 'none', zIndex: 0, ...style }}
+        style={{ position: 'absolute', pointerEvents: 'none', zIndex: 0, transformOrigin: 'top right', ...style }}
         aria-hidden="true"
       >
         {centers.map(([cx, cy], i) => (
@@ -46,9 +47,10 @@ const HoneycombDecor: React.FC<{ style?: React.CSSProperties; variant?: 'A' | 'B
   const centers = buildGrid(R, 5, COLS)
   return (
     <svg
+      className="honeycomb-decor"
       width={Math.ceil(W * COLS + W / 2)}
       height={Math.ceil(R * 8)}
-      style={{ position: 'absolute', pointerEvents: 'none', zIndex: 0, ...style }}
+      style={{ position: 'absolute', pointerEvents: 'none', zIndex: 0, transformOrigin: 'bottom left', ...style }}
       aria-hidden="true"
     >
       {centers.map(([cx, cy], i) => {
@@ -175,14 +177,16 @@ const App: React.FC = () => {
   return (
     <div
       style={{
-        height: '100vh',
+        minHeight: '100vh',
         position: 'relative',
         background: '#5023a4',
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
-        padding: '20px 16px 16px',
+        justifyContent: 'center',
+        padding: '16px',
         fontFamily: "'Segoe UI', system-ui, -apple-system, sans-serif",
+        overflow: 'auto',
       }}
     >
       <BeeWander
@@ -244,9 +248,9 @@ const App: React.FC = () => {
 
       <footer
         style={{
-          marginTop: 24,
-          color: '#475569',
-          fontSize: '0.75rem',
+          marginTop: 8,
+          color: '#d4b8ff',
+          fontSize: '0.8rem',
           textAlign: 'center',
           position: 'relative',
           zIndex: 1,

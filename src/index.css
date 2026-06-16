@@ -73,3 +73,10 @@ body {
   from { opacity: 0; }
   to { opacity: 1; }
 }
+
+@media (max-width: 600px) {
+  .honeycomb-decor {
+    transform: scale(0.75);
+    transform-origin: inherit;
+  }
+}

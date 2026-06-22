@@ -77,7 +77,7 @@ const KonamiEaster: React.FC = () => {
       ctx.textBaseline = 'middle'
       ctx.font         = "48px 'Lilita One', cursive"
 
-      const lines = ['PARTE DELLA CIURMA', 'PARTE DELLA NAVE']
+      const lines = ['PARTE DELLA CIURMA', "PARTE DELL'ALVEARE"]
       const ys    = [72, 128]
 
       for (let i = 0; i < lines.length; i++) {
